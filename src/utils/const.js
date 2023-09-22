@@ -1,6 +1,8 @@
 // const
 const MAPBOX_TOKEN =
-  'pk.eyJ1IjoieWlob25nMDYxOCIsImEiOiJja2J3M28xbG4wYzl0MzJxZm0ya2Fua2p2In0.PNKfkeQwYuyGOTT_x9BJ4Q';
+  'pk.eyJ1Ijoic2FtaGswMDkiLCJhIjoiY2xtZm9iZm5qMjNlYjNkbzVxang2YWtuNyJ9.CEuWiutcW26sf68TTN_rTA';
+  //'pk.eyJ1Ijoic2FtaGswMDkiLCJhIjoiY2xtazNzZ2F4MDl1dzJzbXB3cGh1NXVwMCJ9.xWcdqUYiIxZT6E9o7CM07w';
+  
 const MUNICIPALITY_CITIES_ARR = [
   '北京市',
   '上海市',
@@ -9,6 +11,7 @@ const MUNICIPALITY_CITIES_ARR = [
   '香港特别行政区',
   '澳门特别行政区',
 ];
+
 const MAP_LAYER_LIST = [
   'road-label',
   'waterway-label',
@@ -31,7 +34,7 @@ const LINE_OPACITY = 0.4;
 // styling: map height
 const MAP_HEIGHT = 600;
 //set to `false` if you want to hide the road label characters
-const ROAD_LABEL_DISPLAY = true;
+const ROAD_LABEL_DISPLAY = false;
 
 // IF you outside China please make sure IS_CHINESE = false
 const IS_CHINESE = true;
@@ -84,7 +87,6 @@ export {
 };
 
 const nike = 'rgb(224,237,94)'; // if you want change the main color change here src/styles/variables.scss
-
 // If your map has an offset please change this line
 // issues #92 and #198
 export const NEED_FIX_MAP = false;

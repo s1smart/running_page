@@ -1,3 +1,12 @@
+## 点击[我的跑步主页](https://s1smart.github.io/running_page)
+  
+ 欢迎来到我的跑步主页，这是一个基于@yihong0618 优秀的开源项目：[running page](https://github.com/yihong0618/running_page) 构建的小项目。   
+  
+
+ ![my running data](https://github.com/s1smart/running_page/blob/gh-pages/static/assets/github.svg)
+
+## 以下引用：
+
 ## 注：如果是之前 clone 或 Fork 的朋友 vercel 显示 404 可能需要更新下代码
 
 <p align="center">
