@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## 点击[我的跑步主页](https://s1smart.github.io/running_page)
   
  欢迎来到我的跑步主页，这是一个基于@yihong0618 优秀的开源项目：[running page](https://github.com/yihong0618/running_page) 构建的小项目。   
@@ -8,6 +9,15 @@
 ## 以下引用：
 
 ## 注：如果是之前 clone 或 Fork 的朋友 vercel 显示 404 可能需要更新下代码
+=======
+## note1: clone or Fork before vercel 404 need to pull the latest code
+
+## note2: python3(python) in README means python3 python
+
+## note3: use v2.0 need change vercel setting from gatsby to vite.
+
+## note4: 2023.09.26 garmin need secret_string(and in Actions) get `python run_page/garmin_sync.py ${email} ${password}` if cn `python run_page/garmin_sync.py ${email} ${password} --is-cn`
+>>>>>>> e088d5585bc7f7d1bca99b7dd9734fc78d56ef3c
 
 <p align="center">
   <img width="150" src="https://raw.githubusercontent.com/shaonianche/gallery/master/running_page/running_page_logo.png" />
@@ -95,11 +105,10 @@ English | [简体中文](https://github.com/yihong0618/running_page/blob/master/
 ## Features
 
 1. GitHub Actions manages automatic synchronization of runs and generation of new pages.
-2. Gatsby-generated static pages, fast
-3. Support for Vercel (recommended) and GitHub Pages automated deployment
-4. React Hooks
-5. Mapbox for map display
-6. Supports most sports apps such as nike strava...
+2. Support for Vercel (recommended) and GitHub Pages automated deployment
+3. React Hooks
+4. Mapbox for map display
+5. Supports most sports apps such as nike strava...
 
 > automatically backup gpx data for easy backup and uploading to other software.<br>
 > Note: If you don't want to make the data public, you can choose strava's fuzzy processing, or private repositories.
@@ -127,15 +136,15 @@ Clone or fork the repo.
 git clone https://github.com/yihong0618/running_page.git --depth=1
 ```
 
-## Installation and testing (node >= 14.15.0 python >= 3.7)
+## Installation and testing (node >= 16 python >= 3.8)
 
 ```
 pip3 install -r requirements.txt
-yarn install
-yarn develop
+npm install -g corepack && corepack enable && pnpm install
+pnpm develop
 ```
 
-Open your browser and visit <http://localhost:8000/>
+Open your browser and visit <http://localhost:5173/>
 
 ## Docker
 
@@ -144,9 +153,9 @@ Open your browser and visit <http://localhost:8000/>
 # NRC
 docker build -t running_page:latest . --build-arg app=NRC --build-arg nike_refresh_token=""
 # Garmin
-docker build -t running_page:latest . --build-arg app=Garmin --build-arg email=""  --build-arg password=""
+docker build -t running_page:latest . --build-arg app=Garmin --build-arg secret_string=""
 # Garmin-CN
-docker build -t running_page:latest . --build-arg app=Garmin-CN --build-arg email=""  --build-arg password=""
+docker build -t running_page:latest . --build-arg app=Garmin-CN --build-arg secret_string=""
 # Strava
 docker build -t running_page:latest . --build-arg app=Strava --build-arg client_id=""  --build-arg client_secret=""  --build-arg refresh_token=""
 #Nike_to_Strava
@@ -174,7 +183,7 @@ const MAPBOX_TOKEN =
 
 ## Custom your page
 
-- Find `gatsby-config.js` in the repository directory, find the following content, and change it to what you want.
+- Find `src/static/site-metadata.ts` in the repository directory, find the following content, and change it to what you want.
 
 ```javascript
 siteMetadata: {
@@ -231,7 +240,7 @@ You can using [this](https://developers.google.com/maps/documentation/utilities/
 Copy all your gpx files to GPX_OUT or new gpx files
 
 ```python
-python3(python) scripts/gpx_sync.py
+python3(python) run_page/gpx_sync.py
 ```
 
 </details>
@@ -245,7 +254,7 @@ python3(python) scripts/gpx_sync.py
 Copy all your tcx files to TCX_OUT or new tcx files
 
 ```python
-python3(python) scripts/tcx_sync.py
+python3(python) run_page/tcx_sync.py
 ```
 
 </details>
@@ -259,7 +268,7 @@ python3(python) scripts/tcx_sync.py
 Copy all your tcx files to FIT_OUT or new fit files
 
 ```python
-python3(python) scripts/fit_sync.py
+python3(python) run_page/fit_sync.py
 ```
 
 </details>
@@ -276,19 +285,22 @@ If you only want `tcx` files add args --tcx
 If you only want `fit` files add args --fit
 
 ```python
-python3(python) scripts/garmin_sync.py ${your email} ${your password}
+# to get secret_string
+python3(python) run_page/get_garmin_secret.py ${your email} ${your password}
+# use this secret_string
+python3(python) run_page/garmin_sync.py ${secret_string}
 ```
 
 example：
 
 ```python
-python3(python) scripts/garmin_sync.py example@gmail.com example
+python3(python) run_page/get_garmin_secret.py xxxxxxxxxxx
 ```
 
 only-run：
 
 ```python
-python3(python) scripts/garmin_sync.py example@gmail.com example --only-run
+python3(python) run_page/garmin_sync.py xxxxxxxxxxxxxx(secret_string) --only-run
 ```
 
 </details>
@@ -305,13 +317,16 @@ If you only want `tcx` files add args --tcx
 If you only want `fit` files add args --fit
 
 ```python
-python3(python) scripts/garmin_sync.py ${your email} ${your password} --is-cn
+# to get secret_string
+python3(python) run_page/get_garmin_secret.py ${your email} ${your password} --is-cn
+# use this secret_string
+python3(python) run_page/garmin_sync.py ${secret_string}
 ```
 
 example：
 
 ```python
-python3(python) scripts/garmin_sync.py example@gmail.com example --is-cn
+python3(python) run_page/garmin_sync.py xxxxxxxxx(secret_string)--is-cn
 ```
 
 </details>
@@ -337,13 +352,13 @@ Get Nike's `refresh_token`
 3. Execute in the root directory:
 
 ```python
-python3(python) scripts/nike_sync.py ${nike refresh_token}
+python3(python) run_page/nike_sync.py ${nike refresh_token}
 ```
 
 example：
 
 ```python
-python3(python) scripts/nike_sync.py eyJhbGciThiMTItNGIw******
+python3(python) run_page/nike_sync.py eyJhbGciThiMTItNGIw******
 ```
 
 ![example img](https://raw.githubusercontent.com/shaonianche/gallery/master/running_page/nike_sync_%20example.png)
@@ -425,7 +440,7 @@ curl -X POST https://www.strava.com/oauth/token \
 > If you only want to sync `type running` add args --only-run
 
 ```python
-python3(python) scripts/strava_sync.py ${client_id} ${client_secret} ${refresh_token}
+python3(python) run_page/strava_sync.py ${client_id} ${client_secret} ${refresh_token}
 ```
 
 References：
@@ -448,15 +463,15 @@ References：
 3. Execute in the root directory:
 
 ```python
-python3(python) scripts/tcx_to_strava_sync.py ${client_id} ${client_secret}  ${strava_refresh_token}
+python3(python) run_page/tcx_to_strava_sync.py ${client_id} ${client_secret}  ${strava_refresh_token}
 ```
 
 example：
 
 ```python
-python3(python) scripts/tcx_to_strava_sync.py xxx xxx xxx
+python3(python) run_page/tcx_to_strava_sync.py xxx xxx xxx
 or
-python3(python) scripts/tcx_to_strava_sync.py xxx xxx xxx --all
+python3(python) run_page/tcx_to_strava_sync.py xxx xxx xxx --all
 ```
 
 4. if you want to all files add args `--all`
@@ -475,15 +490,15 @@ python3(python) scripts/tcx_to_strava_sync.py xxx xxx xxx --all
 3. Execute in the root directory:
 
 ```python
-python3(python) scripts/gpx_to_strava_sync.py ${client_id} ${client_secret}  ${strava_refresh_token}
+python3(python) run_page/gpx_to_strava_sync.py ${client_id} ${client_secret}  ${strava_refresh_token}
 ```
 
 example：
 
 ```python
-python3(python) scripts/gpx_to_strava_sync.py xxx xxx xxx
+python3(python) run_page/gpx_to_strava_sync.py xxx xxx xxx
 or
-python3(python) scripts/tcx_to_strava_sync.py xxx xxx xxx --all
+python3(python) run_page/tcx_to_strava_sync.py xxx xxx xxx --all
 ```
 
 4. if you want to all files add args `--all`
@@ -501,13 +516,13 @@ python3(python) scripts/tcx_to_strava_sync.py xxx xxx xxx --all
 2. Execute in the root directory:
 
 ```python
-python3(python) scripts/nike_to_strava_sync.py ${nike_refresh_token} ${client_id} ${client_secret} ${strava_refresh_token}
+python3(python) run_page/nike_to_strava_sync.py ${nike_refresh_token} ${client_id} ${client_secret} ${strava_refresh_token}
 ```
 
 example：
 
 ```python
-python3(python) scripts/nike_to_strava_sync.py eyJhbGciThiMTItNGIw******  xxx xxx xxx
+python3(python) run_page/nike_to_strava_sync.py eyJhbGciThiMTItNGIw******  xxx xxx xxx
 ```
 
 </details>
@@ -523,13 +538,13 @@ python3(python) scripts/nike_to_strava_sync.py eyJhbGciThiMTItNGIw******  xxx xx
 2. Execute in the root directory:
 
 ```python
-python3(python) scripts/garmin_to_strava_sync.py  ${client_id} ${client_secret} ${strava_refresh_token} ${garmin_email} ${garmin_password} --is-cn
+python3(python) run_page/garmin_to_strava_sync.py  ${client_id} ${client_secret} ${strava_refresh_token} ${garmin_secret_string} --is-cn
 ```
 
 e.g.
 
 ```python
-python3(python) scripts/garmin_to_strava_sync.py  xxx xxx xxx xx xxx
+python3(python) run_page/garmin_to_strava_sync.py  xxx xxx xxx xx
 ```
 
 </details>
@@ -545,13 +560,13 @@ python3(python) scripts/garmin_to_strava_sync.py  xxx xxx xxx xx xxx
 2. Execute in the root directory:
 
 ```python
-python3(python) scripts/strava_to_garmin_sync.py ${{ secrets.STRAVA_CLIENT_ID }} ${{ secrets.STRAVA_CLIENT_SECRET }} ${{ secrets.STRAVA_CLIENT_REFRESH_TOKEN }}  ${{ secrets.GARMIN_EMAIL }} ${{ secrets.GARMIN_PASSWORD }} ${{ secrets.STRAVA_EMAIL }} ${{ secrets.STRAVA_PASSWORD }}
+python3(python) run_page/strava_to_garmin_sync.py ${{ secrets.STRAVA_CLIENT_ID }} ${{ secrets.STRAVA_CLIENT_SECRET }} ${{ secrets.STRAVA_CLIENT_REFRESH_TOKEN }}  ${{ secrets.GARMIN_SECRET_STRING }} ${{ secrets.STRAVA_EMAIL }} ${{ secrets.STRAVA_PASSWORD }}
 ```
 
 if your garmin account region is **China**, you need to execute the command:
 
 ```python
-python3(python) scripts/strava_to_garmin_sync.py ${{ secrets.STRAVA_CLIENT_ID }} ${{ secrets.STRAVA_CLIENT_SECRET }} ${{ secrets.STRAVA_CLIENT_REFRESH_TOKEN }}  ${{ secrets.GARMIN_CN_EMAIL }} ${{ secrets.GARMIN_CN_PASSWORD }} ${{ secrets.STRAVA_EMAIL }} ${{ secrets.STRAVA_PASSWORD }} --is-cn
+python3(python) run_page/strava_to_garmin_sync.py ${{ secrets.STRAVA_CLIENT_ID }} ${{ secrets.STRAVA_CLIENT_SECRET }} ${{ secrets.STRAVA_CLIENT_REFRESH_TOKEN }}  ${{ secrets.GARMIN_SECRET_STRING_CN }} ${{ secrets.STRAVA_EMAIL }} ${{ secrets.STRAVA_PASSWORD }} --is-cn
 ```
 
 If you want to add Garmin Device during sync, you should add `--use_fake_garmin_device` argument, this will add a Garmin Device (Garmin Forerunner 245 by default, and you can change device in `garmin_device_adaptor.py`) in synced Garmin workout record, this is essential when you want to sync the workout record to other APP like Keep, JoyRun etc.
@@ -561,7 +576,7 @@ If you want to add Garmin Device during sync, you should add `--use_fake_garmin_
 the final command will be:
 
 ```python
-python3(python) scripts/strava_to_garmin_sync.py ${{ secrets.STRAVA_CLIENT_ID }} ${{ secrets.STRAVA_CLIENT_SECRET }} ${{ secrets.STRAVA_CLIENT_REFRESH_TOKEN }}  ${{ secrets.GARMIN_CN_EMAIL }} ${{ secrets.GARMIN_CN_PASSWORD }} ${{ secrets.STRAVA_EMAIL }} ${{ secrets.STRAVA_PASSWORD }} --use_fake_garmin_device
+python3(python) run_page/strava_to_garmin_sync.py ${{ secrets.STRAVA_CLIENT_ID }} ${{ secrets.STRAVA_CLIENT_SECRET }} ${{ secrets.STRAVA_CLIENT_REFRESH_TOKEN }}  ${{ secrets.GARMIN_SECRET_STRING_CN }} ${{ secrets.STRAVA_EMAIL }} ${{ secrets.STRAVA_PASSWORD }} --use_fake_garmin_device
 ```
 
 ps: **when initializing for the first time, if you have a large amount of strava data, some data may fail to upload, just retry several times.**
@@ -578,17 +593,17 @@ ps: **when initializing for the first time, if you have a large amount of strava
 - Display of results:[Click to view](https://raw.githubusercontent.com/yihong0618/running_page/master/assets/github.svg)、[Click to view](https://raw.githubusercontent.com/yihong0618/running_page/28fa801e4e30f30af5ae3dc906bf085daa137936/assets/grid.svg)
 
 ```
-python scripts/gen_svg.py --from-db --title "${{ env.TITLE }}" --type github --athlete "${{ env.ATHLETE }}" --special-distance 10 --special-distance2 20 --special-color yellow --special-color2 red --output assets/github.svg --use-localtime --min-distance 0.5
+python run_page/gen_svg.py --from-db --title "${{ env.TITLE }}" --type github --athlete "${{ env.ATHLETE }}" --special-distance 10 --special-distance2 20 --special-color yellow --special-color2 red --output assets/github.svg --use-localtime --min-distance 0.5
 ```
 
 ```
-python scripts/gen_svg.py --from-db --title "${{ env.TITLE_GRID }}" --type grid --athlete "${{ env.ATHLETE }}"  --output assets/grid.svg --min-distance 10.0 --special-color yellow --special-color2 red --special-distance 20 --special-distance2 40 --use-localtime
+python run_page/gen_svg.py --from-db --title "${{ env.TITLE_GRID }}" --type grid --athlete "${{ env.ATHLETE }}"  --output assets/grid.svg --min-distance 10.0 --special-color yellow --special-color2 red --special-distance 20 --special-distance2 40 --use-localtime
 ```
 
 Generate year circular svg show
 
 ```
-python3(python) scripts/gen_svg.py --from-db --type circular --use-localtime
+python3(python) run_page/gen_svg.py --from-db --type circular --use-localtime
 ```
 
 For more display effects, see:
@@ -623,17 +638,19 @@ For more display effects, see:
 <summary> Use <code> Cloudflare </code> to deploy </summary>
 <br>
 
-1. Click `Create a project` in `Pages` to connect to your Repo.
+1. Login to [Cloudflare dashboard](https://dash.cloudflare.com).
 
-2. After clicking `Begin setup`, modify Project's `Build settings`.
+2. Click `Workers & Pages` on the left side.
 
-3. Select `Framework preset` to `Gatsby`
+3. Click `Create application` and select `Pages` tab, connect your GitHub account and select `running_page` Repo, then click `Begin setup`.
 
-4. Scroll down, click `Environment variables`, then variable below:
+4. Scroll down to `Build settings`, choose `Create React App` from `Framework preset`, and set `Build output directory` to `dist`.
+
+5. Scroll down, click `Environment variables (advanced)`, then add a variable like below:
 
    > Variable name = `PYTHON_VERSION`, Value = `3.7`
 
-5. Click `Save and Deploy`
+6. Click `Save and Deploy`
 
 </details>
 
@@ -642,11 +659,9 @@ For more display effects, see:
 
 1. If you are using a custom domain for GitHub Pages, open [.github/workflows/gh-pages.yml](.github/workflows/gh-pages.yml), change `fqdn` value to the domain name of your site.
 
-2. (_Skip this step if you're **NOT** using a custom domain_) Modify `gatsby-config.js`, change `pathPrefix` value to the root path. If the repository name is `running_page`, the value will be `/running_page`.
+2. Go to repository's `Settings -> GitHub Pages -> Source`, choose `GitHub Actions`
 
 3. Go to repository's `Actions -> Workflows -> All Workflows`, choose `Publish GitHub Pages` from the left panel, click `Run workflow`. Make sure the workflow runs without errors, and `gh-pages` branch is created.
-
-4. Go to repository's `Settings -> GitHub Pages -> Source`, choose `Branch: gh-pages`, click `Save`.
 
 </details>
 
