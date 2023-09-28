@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ## 点击[我的跑步主页](https://s1smart.github.io/running_page)
   
  欢迎来到我的跑步主页，这是一个基于@yihong0618 优秀的开源项目：[running page](https://github.com/yihong0618/running_page) 构建的小项目。   
@@ -9,7 +8,7 @@
 ## 以下引用：
 
 ## 注：如果是之前 clone 或 Fork 的朋友 vercel 显示 404 可能需要更新下代码
-=======
+
 ## note1: clone or Fork before vercel 404 need to pull the latest code
 
 ## note2: python3(python) in README means python3 python
@@ -17,7 +16,7 @@
 ## note3: use v2.0 need change vercel setting from gatsby to vite.
 
 ## note4: 2023.09.26 garmin need secret_string(and in Actions) get `python run_page/garmin_sync.py ${email} ${password}` if cn `python run_page/garmin_sync.py ${email} ${password} --is-cn`
->>>>>>> e088d5585bc7f7d1bca99b7dd9734fc78d56ef3c
+
 
 <p align="center">
   <img width="150" src="https://raw.githubusercontent.com/shaonianche/gallery/master/running_page/running_page_logo.png" />
