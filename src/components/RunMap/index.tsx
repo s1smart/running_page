@@ -102,12 +102,7 @@ const RunMap = ({
       onMove={onMove}
       style={style}
       mapStyle="mapbox://styles/mapbox/dark-v10"
-<<<<<<< HEAD:src/components/RunMap/index.jsx
-	  //mapStyle="mapbox://styles/mapbox/satellite-v9"
-	  //mapStyle="mapbox://styles/mapbox/navigation-night-v1"
-      onViewportChange={setViewport}
-=======
->>>>>>> e088d5585bc7f7d1bca99b7dd9734fc78d56ef3c:src/components/RunMap/index.tsx
+
       ref={mapRefCallback}
       mapboxAccessToken={MAPBOX_TOKEN}
     >
