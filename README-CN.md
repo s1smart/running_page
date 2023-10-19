@@ -73,7 +73,7 @@ R.I.P. 希望大家都能健康顺利的跑过终点，逝者安息。
 | [jianchengwang](https://github.com/jianchengwang) | <https://jianchengwang.github.io/running_page> | Suunto      |
 | [fxbin](https://github.com/fxbin)                 | <https://fxbin.github.io/sport-records/>       | Keep        |
 | [shensl4499](https://github.com/shensl4499)       | <https://waner.run>                            | codoon      |
-| [haowei93](https://github.com/haowei93)           | <https://haowei93.github.io/>                  | gpx         |
+| [haowei93](https://github.com/haowei93)           | <https://running-fun.eu.org>                   | gpx         |
 | [stevenash0822](https://github.com/stevenash0822) | <https://run.imangry.xyz/>                     | Strava      |
 | [Vint](https://github.com/VintLin)                | <https://vinton.store/Running/>                | Keep        |
 | [Muyids](https://github.com/muyids)               | <https://muyids.github.io/running>             | Garmin-cn   |
@@ -84,12 +84,13 @@ R.I.P. 希望大家都能健康顺利的跑过终点，逝者安息。
 | [EINDEX](https://github.com/eindex)               | <https://workouts.eindex.me/>                  | Strava/Nike |
 | [Melt](https://github.com/fpGHwd)                 | <https://running.autove.dev/>                  | Strava      |
 | [deepinwine](https://github.com/deepinwine)       | <https://deepin.autove.dev/>                   | Garmin-cn   |
+| [Jeffggmm](https://github.com/Jeffggmm)           | <https://jeffggmm.github.io/workouts_page/>    | Garmin      |
 
 </details>
 
 ## 它是怎么工作的
 
-![image](https://user-images.githubusercontent.com/15976103/105784027-e1ad9900-5fb2-11eb-9479-372be21482f1.png)
+![image](https://github.com/yihong0618/running_page/assets/15976103/85d8d59d-2639-431e-8406-9d818afbd4ab)
 
 ## 特性
 
@@ -461,12 +462,20 @@ python3(python) run_page/tulipsport_sync.py nLgy****RyahI
 
 如果你想同步 `fit` 格式，增加命令 --fit
 
+如果你使用 Garmin 作为数据源建议您将代码拉取到本地获取 Garmin 国际区的密钥，注意**Python 版本必须>=3.8**
+
+#### 获取佳明国际区的密钥
+
+在终端中输入以下命令
+
 ```python
-# to get secret_string
+# 获取密钥
 python3(python) run_page/get_garmin_secret.py ${your email} ${your password}
-# use this secret_string
-python3(python) run_page/garmin_sync.py ${secret_string}
 ```
+
+#### 执行佳明国际区同步脚本
+
+复制上述终端中输出的密钥，如果您是使用 Github 请在 Github Action 中配置**GARMIN_SECRET_STRING**参数
 
 示例：
 
@@ -487,13 +496,23 @@ python3(python) run_page/garmin_sync.py xxxxxxxxxxx
 
 如果你想同步 `fit` 格式，增加命令 --fit
 
+如果你使用 Garmin 作为数据源建议您将代码拉取到本地获取 Garmin 国际区的密钥，注意**Python 版本必须>=3.10**
+
+#### 获取佳明国区的密钥
+
+在终端中输入以下命令
+
 ```python
 # to get secret_string
 python3(python) run_page/get_garmin_secret.py ${your email} ${your password} --is-cn
-# use this secret_string
-python3(python) run_page/garmin_sync.py ${secret_string}
 ```
 
+![get_garmin_cn_secret](docs/get_garmin_cn_secret.jpg)
+
+#### 执行佳明国区同步脚本
+
+复制上述终端中输出的密钥，如果您是使用 Github 请在 Github Action 中配置**GARMIN_SECRET_STRING_CN** 参数
+![get_garmin_secret](docs/add_garmin_secret_cn_string.jpg)
 示例：
 
 ```python
@@ -814,17 +833,19 @@ python3(python) run_page/gen_svg.py --from-db --type circular --use-localtime
 <details>
 <summary> 部署到 GitHub Pages </summary>
 
-1. 为 GitHub Actions 添加代码提交权限
-   访问仓库的 `Settings > Actions > General`页面，找到`Workflow permissions`的设置项，将选项配置为`Read and write permissions`，支持 CI 将运动数据更新后提交到仓库中。
-2. 更新配置并提交代码
-   1. 更新[./src/static/site-metadata.ts](./src/static/site-metadata.ts#L12)中的`data`对象；
-      （按需）如果启用自定义域名模式或者变更 Fork 后的仓库名称，请变更`pathPrefix`的值。
-   2. 更新 GitHub CI 的配置 [.github/workflows/run_data_sync.yml](.github/workflows/run_data_sync.yml#L24) 中的配置；
-   3. （按需）如需使用自定义域名，可以修改 [.github/workflows/gh-pages.yml](.github/workflows/gh-pages.yml#L60) 中的 `fqdn`（默认已注释掉）
-   4. 在仓库的`Settings > Secrets and variables > Actions`页面添加对应服务的环境配置信息，参考不同平台[配置](#支持)。
-3. 同步数据并发布 GitHub Pages
-   1. 手动触发`Run Data Sync`的 Github Action 完成数据同步，完成后会自动触发`Publish GitHub Pages`的任务执行，等待执行完成；
-   2. 开通仓库 GitHub Pages 功能，选择`GitHub Actions`
+1. 进入仓库的"Settings -> GitHub Pages -> Source"， 选择"GitHub Actions"
+
+2. 进入仓库的"Actions -> Workflows -> All Workflows"， 选择左侧面板的"Run Data Sync"， 然后点击"Run workflow"
+
+- "Run Data Sync"将更新数据,然后触发"Publish GitHub Pages"工作流
+- 确认工作流运行没有错误
+
+3. 打开网站检查结果
+
+- 如果网站没有反映最新数据，请使用“F5”刷新页面
+- 某些浏览器(比如 Chrome)可能缓存网页不刷新,您需要使用 Ctrl+F5 (Windows) 或 Shift+Cmd+r (Mac)强制清除缓存并重新加载页面
+
+4. 为 GitHub Actions 添加代码提交权限，访问仓库的 `Settings > Actions > General`页面，找到`Workflow permissions`的设置项，将选项配置为`Read and write permissions`，支持 CI 将运动数据更新后提交到仓库中。
 
 </details>
 
@@ -844,6 +865,40 @@ Actions [源码](https://github.com/yihong0618/running_page/blob/master/.github/
    ![image](https://user-images.githubusercontent.com/15976103/94450295-aacf9e00-01df-11eb-80b7-a92b9cd1461e.png)
    我的 secret 如下
    ![image](https://user-images.githubusercontent.com/15976103/94451037-8922e680-01e0-11eb-9bb9-729f0eadcdb7.png)
+
+</details>
+
+## 快捷指令
+
+<details>
+
+<summary>使用 iOS 的 Shortcuts 实现自动化</summary>
+
+下面拿 keep app 举例，当结束跑步后关闭 app，然后自动触发 Actions 更新数据。
+
+1. 拿到项目的 actions id（需要自行申请 token）
+
+```shell
+curl https://api.github.com/repos/yihong0618/running_page/actions/workflows -H "Authorization: token d8xxxxxxxxxx" # change to your config
+```
+
+<center><img src="https://cdn.jujimeizuo.cn/blog/2023/10/get-action-id.jpg" alt="get-action-id"></center>
+
+2. 结合快捷指令
+
+   1. 通过 icloud 获取 [running-page-shortcuts-template](https://www.icloud.com/shortcuts/4a5807a98b9a4e359815ff179c62bacb)
+
+   2. 修改下图字典参数
+   <center> <img src="https://cdn.jujimeizuo.cn/blog/2023/10/running-page-template.jpg"> </center>
+
+3. 自动化
+
+<center>
+<img src="https://cdn.jujimeizuo.cn/blog/2023/10/new-automation.png" width=20% height=20%>
+<img src="https://cdn.jujimeizuo.cn/blog/2023/10/select-close.png" width=20% height=20%>
+<img src="https://cdn.jujimeizuo.cn/blog/2023/10/select-shortcut.png" width=20% height=20%>
+<img src="https://cdn.jujimeizuo.cn/blog/2023/10/finish-automation.png" width=20% height=20%>
+</center>
 
 </details>
 
