@@ -43,7 +43,7 @@ English | [简体中文](https://github.com/yihong0618/running_page/blob/master/
 | [zhubao315](https://github.com/zhubao315)         | <https://zhubao315.github.io/running>          | Strava      |
 | [shaonianche](https://github.com/shaonianche)     | <https://run.duanfei.org>                      | Strava      |
 | [yihong0618](https://github.com/yihong0618)       | <https://yihong.run>                           | Nike        |
-| [superleeyom](https://github.com/superleeyom)     | <https://running.leeyom.top>                   | Nike        |
+| [superleeyom](https://github.com/superleeyom)     | <https://running.leeyom.top>                   | Strava        |
 | [geekplux](https://github.com/geekplux)           | <https://activities.geekplux.com>              | Nike        |
 | [guanlan](https://github.com/guanlan)             | <https://grun.vercel.app>                      | Strava      |
 | [tuzimoe](https://github.com/tuzimoe)             | <https://run.tuzi.moe>                         | Nike        |
@@ -96,6 +96,11 @@ English | [简体中文](https://github.com/yihong0618/running_page/blob/master/
 | [Ryan](https://github.com/85Ryan)                 | <https://85ryan.github.io/gooorun/>            | Strava      |
 | [PPZ](https://github.com/8824PPZ)                 | <https://run.dudubbbbbbbbb.top/>               | Strava      |
 | [Yer1k](https://github.com/Yer1k)                 | <https://running.yer1k.com/>                   | Strava      |
+| [AlienVision](https://github.com/weaming)         | <https://run.drink.cafe/>                      | Strava      |
+| [闻笑忘](https://wenxiaowan.com)                | <https://wenxiaowan.com>                       | 苹果健身     |
+| [Vensent](https://github.com/Vensent)             | <https://vensent.github.io/workouts_page/>     | Garmin      |
+| [Zeonsing](https://github.com/NoonieBao)             | <https://run.jogzeal.com/>     | Coros      |
+| [yaoper](https://github.com/yaoper)               | <https://running.yaoper.cn>                    | codoon      |
 </details>
 
 ## How it works
@@ -126,10 +131,11 @@ English | [简体中文](https://github.com/yihong0618/running_page/blob/master/
 - **[Garmin-CN_to_Garmin(Sync Garmin-CN activities to Garmin Global)](#garmin-cn-to-garmin)**
 - **[Nike_to_Strava(Using NRC Run, Strava backup data)](#nike_to_strava)**
 - **[Tcx_to_Strava(upload all tcx data to strava)](#tcx_to_strava)**
+- **[Tcx_to_Garmin(upload all tcx data to Garmin)](#tcx_to_garmin)**
 - **[Gpx_to_Strava(upload all gpx data to strava)](#gpx_to_strava)**
 - **[Garmin_to_Strava(Using Garmin Run, Strava backup data)](#garmin_to_strava)**
 - **[Strava_to_Garmin(Using Strava Run, Garmin backup data)](#strava_to_garmin)**
-
+- **[Coros](#Coros)**
 ## Download
 
 Clone or fork the repo.
@@ -166,6 +172,9 @@ docker build -t running_page:latest . --build-arg app=Strava --build-arg client_
 
 # Nike_to_Strava
 docker build -t running_page:latest . --build-arg app=Nike_to_Strava  --build-arg nike_refresh_token="" --build-arg client_id=""  --build-arg client_secret=""  --build-arg refresh_token=""
+
+# Keep
+docker build -t running_page:latest . --build-arg app=Keep --build-arg keep_phone_number="" --build-arg keep_password=""
 
 # run
 docker run -itd -p 80:80   running_page:latest
@@ -580,6 +589,33 @@ python3(python) run_page/tcx_to_strava_sync.py xxx xxx xxx --all
 
 </details>
 
+### TCX_to_Garmin
+
+<details>
+<summary>upload all tcx files to garmin</summary>
+
+<br>
+
+1. follow the garmin steps
+2. copy all your tcx files to TCX_OUT
+3. Execute in the root directory:
+
+```bash
+python3 run_page/tcx_to_garmin_sync.py ${{ secrets.GARMIN_SECRET_STRING_CN }} --is-cn
+```
+
+example：
+
+```bash
+python run_page/tcx_to_garmin_sync.py xxx --is-cn
+or Garmin Global
+python run_page/tcx_to_garmin_sync.py xxx
+```
+
+4. if you want to all files add args `--all`
+
+</details>
+
 ### GPX_to_Strava
 
 <details>
@@ -682,6 +718,29 @@ python3(python) run_page/strava_to_garmin_sync.py ${{ secrets.STRAVA_CLIENT_ID }
 ```
 
 ps: **when initializing for the first time, if you have a large amount of strava data, some data may fail to upload, just retry several times.**
+
+</details>
+
+
+
+### Coros
+
+<details>
+<summary>Get your Coros data</summary>
+
+#### Enter the following command in the terminal
+
+```bash
+python run_page/coros_sync.py 'your coros account' 'your coros password'
+```
+
+#### Modify `run_data_sync.yml`  env.RUN_TYPE: _coros_
+
+#### Set the Coros account information in github action
+
+- configure the `COROS_ACCOUNT` , `COROS_PASSWORD`
+
+  ![github-action](https://img3.uploadhouse.com/fileuploads/30980/3098042335f8995623f8b50776c4fad4cf7fff8d.png)
 
 </details>
 
@@ -925,7 +984,7 @@ Just enjoy it~
   Strava API Rate Limit Timeout. Retry in 799.491622 seconds
   ```
 
-- vercel git ignpre gh-pages:
+- vercel git ignore gh-pages:
 
   you can change settings -> build -> Ignored Build Step -> Custom command
 
