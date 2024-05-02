@@ -75,7 +75,7 @@ jobs:
         with:
           node-version: '20'
 
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v3
         name: Install pnpm
         with:
         
@@ -101,7 +101,7 @@ jobs:
         run: PATH_PREFIX=/${{ github.event.repository.name }} pnpm build
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v4
         with:
           # Upload dist repository
           path: './dist'
