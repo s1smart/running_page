@@ -75,7 +75,7 @@ jobs:
         with:
           node-version: '20'
 
-      - uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v2
         name: Install pnpm
         with:
         
@@ -101,7 +101,9 @@ jobs:
         run: PATH_PREFIX=/ pnpm build
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+
+        uses: actions/upload-pages-artifact@v2
+
         with:
           # Upload dist repository
           path: './dist'
