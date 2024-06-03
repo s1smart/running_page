@@ -1,4 +1,4 @@
-
+## Note
 
 1. clone or Fork before vercel 404 need to pull the latest code
 2. python3(python) in README means python3 python
@@ -10,7 +10,6 @@
   # if cn
   python run_page/get_garmin_secret.py ${email} ${password} --is-cn
 ```
-
 
 <p align="center">
   <img width="150" src="https://raw.githubusercontent.com/shaonianche/gallery/master/running_page/running_page_logo.png" />
